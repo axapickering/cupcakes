@@ -1,39 +1,40 @@
 "use strict";
 const $cupcakeList = $('#cupcake-list');
-const $addCupcakeForm = $("#add-cupcake-form")
+const $addCupcakeForm = $("#add-cupcake-form");
 
 
-async function addCupcakesToDOM() {
-  $cupcakeList.empty();
-  const cupcakes = await Cupcake.getAllCupcakes();
-  console.log(cupcakes, "cupcakes");
+// async function addCupcakesToDOM() {
+//   $cupcakeList.empty();
+//   const cupcakes = await Cupcake.getAllCupcakes();
+//   console.log(cupcakes, "cupcakes");
 
-  for (cupcake in cupcakes) {
-    const $image = $("<img>").attr("src", cupcake.image_url);
-    const $text = $("<span>").append(
-      `flavor: ${cupcakes.flavor} \n
-      size: ${cupcakes.size} \n
-      rating: ${cupcakes.rating}`);
+//   for (cupcake in cupcakes) {
+//     const $image = $("<img>").attr("src", cupcake.image_url);
+//     const $text = $("<span>").append(
+//       `flavor: ${cupcakes.flavor} \n
+//       size: ${cupcakes.size} \n
+//       rating: ${cupcakes.rating}`);
 
-    const $li = $("<li>").append($image).append($text);
+//     const $li = $("<li>").append($image).append($text);
 
-    $cupcakeList.append($li);
+//     $cupcakeList.append($li);
 
-  }
+//   }
 
-}
+// }
 
 
 /** calls the addCupcake function to add a cupcake to the DB  */
-async function addCupcake(evt) {
+function addCupcake(evt) {
 
-    evt.preventdefault()
-    const formData = JSON.stringify($addCupcakeForm.serializeArray());
-    await Cupcake.addCupcake(formData)
+  evt.preventDefault();
+  const formData = $addCupcakeForm.serializeArray()
 
 }
 
-$addCupcakeForm.on("submit",addCupcake(evt))
 
 
-addCupcakesToDOM();
+$addCupcakeForm.on("submit", addCupcake);
+
+
+// addCupcakesToDOM();
