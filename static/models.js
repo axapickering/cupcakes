@@ -1,12 +1,11 @@
 "use strict";
 
-const $cupcakeList = $('#cupcake-list')
 
-const BASE_URL = "http://localhost:5001/api"
+const BASE_URL = "http://localhost:5001/api";
 
-class Cupcake() {
+class Cupcake {
 
-    constructor(flavor,size,rating,image_url) {
+    constructor(flavor, size, rating, image_url) {
         self.flavor = flavor;
         self.size = size;
         self.rating = rating;
@@ -16,11 +15,12 @@ class Cupcake() {
     /** Gets a list of all cupcakes */
     static async getAllCupcakes() {
 
-        const response = await fetch(`${BASE_URL}/cupcakes`)
-
-        return response.json()
-
-
+        const response = await fetch(`${BASE_URL}/cupcakes`);
+        console.log(response)
+        const { data } = response.json();
+        console.log(data);
+        return data;
+        
     }
 
 
