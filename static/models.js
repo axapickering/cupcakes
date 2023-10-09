@@ -23,7 +23,13 @@ class Cupcake {
 
     }
 
-    static async addCupcake(formData) {
+    static async addCupcake(flavor,size,rating,image_url) {
+
+        console.log("flavor:",flavor)
+
+        const formData = JSON.stringify({flavor,size,rating,image_url})
+        console.log("form data:",typeof formData)
+
         const response = await fetch(`${BASE_URL}/cupcakes`, {
             method : "POST",
             body : formData,

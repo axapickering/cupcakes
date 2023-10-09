@@ -69,10 +69,10 @@ def create_cupcake():
     # form = AddCupcakeForm()
 
     cupcake = Cupcake(
-        flavor=request.form["flavor"],
-        size=request.form["size"],
-        rating=request.form["rating"],
-        image_url=request.form["image_url"] or DEFAULT_IMAGE_URL,
+        flavor=request.json["flavor"],
+        size=request.json["size"],
+        rating=request.json["rating"],
+        image_url=request.json["image_url"] or DEFAULT_IMAGE_URL,
     )
 
     db.session.add(cupcake)
