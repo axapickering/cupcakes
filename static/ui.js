@@ -1,5 +1,6 @@
 "use strict";
 const $cupcakeList = $('#cupcake-list');
+const $addCupcakeForm = $("#add-cupcake-form")
 
 
 async function addCupcakesToDOM() {
@@ -21,5 +22,18 @@ async function addCupcakesToDOM() {
   }
 
 }
+
+
+/** calls the addCupcake function to add a cupcake to the DB  */
+async function addCupcake(evt) {
+
+    evt.preventdefault()
+    const formData = JSON.stringify($addCupcakeForm.serializeArray());
+    await Cupcake.addCupcake(formData)
+
+}
+
+$addCupcakeForm.on("submit",addCupcake(evt))
+
 
 addCupcakesToDOM();

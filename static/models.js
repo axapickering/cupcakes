@@ -20,7 +20,17 @@ class Cupcake {
         const { data } = response.json();
         console.log(data);
         return data;
-        
+
+    }
+
+    static async addCupcake(formData) {
+        const response = await fetch(`${BASE_URL}/cupcakes`, {
+            method : "POST",
+            body : formData,
+            headers : {
+                "Content-Type" : "application/json"
+            }
+        })
     }
 
 
