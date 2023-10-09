@@ -18,7 +18,11 @@ connect_db(app)
 #TODO: update docstrings to give example of returned JSON
 @app.get("/api/cupcakes")
 def get_all_cupcakes():
-    ''' Return JSON with info on all cupcakes '''
+    '''
+    Return JSON with info on all cupcakes
+    Returns JSON {cupcakes: [{id, flavor, size, rating, image_url}, ...]}
+
+    '''
 
     cupcakes = Cupcake.query.all()
     serialized = [c.serialize() for c in cupcakes]
@@ -28,7 +32,11 @@ def get_all_cupcakes():
 
 @app.get("/api/cupcakes/<int:cupcake_id>")
 def get_cupcake_info(cupcake_id):
-    ''' Return JSON with info on a specific cupcake'''
+    '''
+    Return JSON with info on a specific cupcake
+    Returns JSON like {cupcake: {id, flavor, size, rating, image_url}}
+
+    '''
 
     cupcake = Cupcake.query.get_or_404(cupcake_id)
     serialized = cupcake.serialize()
@@ -37,7 +45,11 @@ def get_cupcake_info(cupcake_id):
 
 @app.post("/api/cupcakes")
 def create_cupcake():
-    ''' Creates a new cupcake from request data '''
+    '''
+    Creates a new cupcake from request data
+    Returns JSON like {cupcake: {id, flavor, size, rating, image_url}
+
+    '''
 
     cupcake = Cupcake(
         flavor = request.json["flavor"],
@@ -55,7 +67,11 @@ def create_cupcake():
 
 @app.patch("/api/cupcakes/<int:cupcake_id>")
 def update_cupcake(cupcake_id):
-    ''' Update cupcake using information and returns updated cupcake'''
+    '''
+    Update cupcake using information and returns updated cupcake
+    Returns JSON like {cupcake: {id, flavor, size, rating, image_url}
+
+    '''
 
     cupcake = Cupcake.query.get_or_404(cupcake_id)
 
@@ -73,7 +89,10 @@ def update_cupcake(cupcake_id):
 
 @app.delete("/api/cupcakes/<int:cupcake_id>")
 def delete_cupcake(cupcake_id):
-    '''Deletes cupcake and returns deleted: cupcake-id'''
+    '''
+    Deletes cupcake and returns JSON {deleted: cupcake-id}
+
+    '''
 
     cupcake = Cupcake.query.get_or_404(cupcake_id)
 

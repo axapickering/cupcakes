@@ -1,11 +1,10 @@
+from models import db, Cupcake
+from app import app
+from unittest import TestCase
 import os
 
 os.environ["DATABASE_URL"] = 'postgresql:///cupcakes_test'
 
-from unittest import TestCase
-
-from app import app
-from models import db, Cupcake
 
 # Make Flask errors be real errors, rather than HTML pages with error info
 app.config['TESTING'] = True
@@ -105,4 +104,60 @@ class CupcakeViewsTestCase(TestCase):
             })
 
             self.assertEqual(Cupcake.query.count(), 2)
+
+    def test_patch_cupcake(self):
+        ''' Tests the patching of a cupcake'''
+
+        with app.test_client() as client:
+            url = f"/api/cupcakes/{self.cupcake_id}"
+            resp = client.patch(url, json=CUPCAKE_DATA_2)
+
+            self.assertEqual(resp.status_code, 200)
+
+            self.assertEqual(resp.json, {
+                "cupcake": {
+                    "id": self.cupcake_id,
+                    "flavor": "TestFlavor2",
+                    "size": "TestSize2",
+                    "rating": 10,
+                    "image_url": "http://test.com/cupcake2.jpg"
+                }
+            })
+
+    def test_invalid_patch_cupcake(self):
+        ''' Tests the patching of a cupcake'''
+
+        with app.test_client() as client:
+            url = f"/api/cupcakes/{self.cupcake_id + 1}"
+            resp = client.patch(url, json=CUPCAKE_DATA_2)
+
+            self.assertEqual(resp.status_code, 404)
+
+
+    def test_delete_cupcake(self):
+        ''' Tests the deletion of a cupcake'''
+
+        with app.test_client() as client:
+            url = f"/api/cupcakes/{self.cupcake_id}"
+            resp = client.delete(url)
+
+
+            self.assertEqual(resp.status_code, 200)
+
+            self.assertEqual(resp.json, {
+                "deleted" : self.cupcake_id
+            })
+
+            self.assertEqual(Cupcake.query.count(),0)
+
+
+    def test_delete_invalid_cupcake(self):
+        ''' Tests the deletion of a cupcake'''
+
+        with app.test_client() as client:
+            url = f"/api/cupcakes/{self.cupcake_id + 1}"
+            resp = client.delete(url)
+
+
+            self.assertEqual(resp.status_code, 404)
 
