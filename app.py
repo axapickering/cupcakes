@@ -6,6 +6,8 @@ from flask import Flask, request, redirect, render_template, flash, jsonify
 
 from models import db, connect_db, Cupcake, DEFAULT_IMAGE_URL
 
+from forms import AddCupcakeForm
+
 app = Flask(__name__)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
@@ -18,7 +20,16 @@ app.config["SECRET_KEY"] = "nibblers"
 connect_db(app)
 
 
-# TODO: update docstrings to give example of returned JSON
+@app.get("/")
+def display_homepage():
+    ''' Displays the homepage '''
+
+    form = AddCupcakeForm()
+
+    return render_template("index.html",form=form)
+
+
+
 @app.get("/api/cupcakes")
 def get_all_cupcakes():
     """

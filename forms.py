@@ -6,7 +6,7 @@ from flask_wtf import FlaskForm
 from wtforms.validators import InputRequired, Optional, Length
 
 
-class AddCupcake(FlaskForm):
+class AddCupcakeForm(FlaskForm):
     """Form for adding cupcake"""
 
     flavor = StringField("Flavor", validators=[InputRequired(), Length(max=50)])
