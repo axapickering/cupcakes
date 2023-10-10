@@ -36,6 +36,15 @@ class Cupcake {
         });
     }
 
+    /** Makes a call to the API to delete a cupcake  */
+    static async deleteCupcake(cupcakeId) {
+
+        const response = await fetch(`${BASE_URL}/cupcakes/${cupcakeId}`,{
+            method: "DELETE"
+        })
+
+    }
+
 
 
 

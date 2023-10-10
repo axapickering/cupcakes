@@ -15,7 +15,14 @@ async function addCupcakesToDOM() {
       size: ${cupcake.size}
       rating: ${cupcake.rating}`);
 
-    const $li = $("<li>").append($text).append($("<div>")).append($image);
+    const $deleteButton = $('<button>')
+      .addClass("delete-cupcake")
+      .text("Delete")
+    const $li = $("<li>").attr("id",cupcake.id)
+      .append($text)
+      .append($deleteButton)
+      .append($("<div>"))
+      .append($image);
 
     $cupcakeList.append($li);
 
@@ -34,7 +41,21 @@ function addCupcake(evt) {
   Cupcake.addCupcake(flavor, size, rating, image_url);
 
 }
+
+function deleteCupcake(evt) {
+
+    const cupcakeId = $(evt.target).parent().attr("id")
+
+    Cupcake.deleteCupcake(cupcakeId);
+
+    location.reload();
+
+
+}
+
 $addCupcakeForm.on("submit", addCupcake);
+
+$('ul').on("click",'.delete-cupcake',deleteCupcake)
 
 
 addCupcakesToDOM();
