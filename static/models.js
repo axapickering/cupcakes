@@ -4,39 +4,36 @@
 const BASE_URL = "http://localhost:5001/api";
 
 class Cupcake {
-
-    constructor(flavor, size, rating, image_url) {
-        self.flavor = flavor;
-        self.size = size;
-        self.rating = rating;
-        self.image_url = image_url;
+    /**Makes Cupcakces  */
+    constructor(){
     }
 
     /** Gets a list of all cupcakes */
     static async getAllCupcakes() {
 
         const response = await fetch(`${BASE_URL}/cupcakes`);
-        console.log(response)
-        const { data } = response.json();
-        console.log(data);
-        return data;
+        console.log(response);
+        const allCupcakesObject = await response.json();
+        const { cupcakes } = allCupcakesObject;
+        return cupcakes;
 
     }
 
-    static async addCupcake(flavor,size,rating,image_url) {
+    /**Sends post request to the API to add cupcake*/
+    static async addCupcake(flavor, size, rating, image_url) {
 
-        console.log("flavor:",flavor)
+        console.log("flavor:", flavor);
 
-        const formData = JSON.stringify({flavor,size,rating,image_url})
-        console.log("form data:",typeof formData)
+        const formData = JSON.stringify({ flavor, size, rating, image_url });
+        console.log("form data:", typeof formData);
 
         const response = await fetch(`${BASE_URL}/cupcakes`, {
-            method : "POST",
-            body : formData,
-            headers : {
-                "Content-Type" : "application/json"
+            method: "POST",
+            body: formData,
+            headers: {
+                "Content-Type": "application/json"
             }
-        })
+        });
     }
 
 
