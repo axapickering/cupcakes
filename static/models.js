@@ -1,12 +1,10 @@
 "use strict";
 
 
-const BASE_URL = "http://localhost:5001/api";
+const BASE_URL = "/api"; // TODO: add cupcakes
 
 class Cupcake {
     /**Makes Cupcakces  */
-    constructor(){
-    }
 
     /** Gets a list of all cupcakes */
     static async getAllCupcakes() {

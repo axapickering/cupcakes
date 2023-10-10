@@ -10,6 +10,7 @@ async function addCupcakesToDOM() {
 
   for (let cupcake of cupcakes) {
     const $image = $("<img>").attr("src", cupcake.image_url).attr("width", 200);
+
     const $text = $("<span>").append(
       `flavor: ${cupcake.flavor}
       size: ${cupcake.size}
@@ -18,6 +19,7 @@ async function addCupcakesToDOM() {
     const $deleteButton = $('<button>')
       .addClass("delete-cupcake")
       .text("Delete")
+
     const $li = $("<li>").attr("id",cupcake.id)
       .append($text)
       .append($deleteButton)
